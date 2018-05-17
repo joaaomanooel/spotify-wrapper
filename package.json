@@ -10,12 +10,17 @@
     "test:tdd": "npm test -- --watch ",
     "test:converage": "nyc npm test"
   },
-  "nyc":{
+  "nyc": {
     "functions": 80,
     "lines": 80,
     "check-converage": true,
-    "reporter": [ "text", "html" ],
-    "exclude": [ "tests/**" ]
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
   },
   "repository": {
     "type": "git",
