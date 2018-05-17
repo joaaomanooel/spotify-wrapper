@@ -1,4 +1,6 @@
-const search = () => {};
+const search = () => {
+  fetch('https://spotify.com');
+};
 const searchAlbuns = () => {};
 const searchArtists = () => {};
 const searchTracks = () => {};
