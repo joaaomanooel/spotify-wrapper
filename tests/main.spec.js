@@ -23,37 +23,37 @@ chai.use(sinonChai);
 sinonStubPromise(sinon);
 
 describe('Spotify Wrapper', () => {
+  let fetchedStub;
+  let promise;
+
+  beforeEach(() => {
+    fetchedStub = sinon.stub(global, 'fetch');
+    promise = fetchedStub.returnsPromise();
+  });
+
+  afterEach(() => {
+    fetchedStub.restore();
+  });
+
   describe('Smok test', () => {
-    it('Sould exist the search method', () => expect(search).to.be.exist);
+    it('Should exist the search method', () => expect(search).to.be.exist);
 
-    it('Sould exist the searchAlbums method', () => expect(searchAlbums).to.exist);
+    it('Should exist the searchAlbums method', () => expect(searchAlbums).to.exist);
 
-    it('Sould exist the searchArtists method', () => expect(searchArtists).to.exist);
+    it('Should exist the searchArtists method', () => expect(searchArtists).to.exist);
 
-    it('Sould exist the searchTracks method', () => expect(searchTracks).to.exist);
+    it('Should exist the searchTracks method', () => expect(searchTracks).to.exist);
 
-    it('Sould exist the searchPlaylists method', () => expect(searchPlaylists).to.exist);
+    it('Should exist the searchPlaylists method', () => expect(searchPlaylists).to.exist);
   });
 
   describe('Generic Search', () => {
-    let fetchedStub;
-    let promise;
-
-    beforeEach(() => {
-      fetchedStub = sinon.stub(global, 'fetch');
-      promise = fetchedStub.returnsPromise();
-    });
-
-    afterEach(() => {
-      fetchedStub.restore();
-    });
-
-    it('should call fetch function', () => {
+    it('Should call fetch function', () => {
       search();
       return expect(fetchedStub).to.have.been.calledOnce;
     });
 
-    it('should call fetch with the correct URL', () => {
+    it('Should call fetch with the correct URL', () => {
       context('passing one type', () => {
         search('Emicida', 'artist');
         expect(fetchedStub).to.have.been
@@ -71,10 +71,78 @@ describe('Spotify Wrapper', () => {
       });
     });
 
-    it('should return the JSON Data from the Promise', () => {
+    it('Should return the JSON Data from the Promise', () => {
       promise.resolves({ body: 'json' });
       const artists = search('Emicida', 'artist');
       expect(artists.resolveValue).to.be.eql({ body: 'json' });
+    });
+  });
+
+  describe('searchArtists', () => {
+    it('Should call fetch function', () => {
+      searchArtists('Emicida');
+      return expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the correct URL', () => {
+      searchArtists('Emicida');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=artist');
+
+      searchArtists('Muse');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
+    });
+  });
+
+  describe('searchAlbums', () => {
+    it('Should call fetch function', () => {
+      searchAlbums('Emicida');
+      return expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the correct URL', () => {
+      searchAlbums('Emicida');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=album');
+
+      searchAlbums('Muse');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
+    });
+  });
+
+  describe('searchPlayLists', () => {
+    it('Should call fetch function', () => {
+      searchPlaylists('Emicida');
+      return expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the correct URL', () => {
+      searchPlaylists('Emicida');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=playlist');
+
+      searchPlaylists('Muse');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
+    });
+  });
+
+  describe('searchTraks', () => {
+    it('Should call fetch function', () => {
+      searchTracks('Emicida');
+      return expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the correct URL', () => {
+      searchTracks('Emicida');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=track');
+
+      searchTracks('Muse');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/search?q=Muse&type=track');
     });
   });
 });
