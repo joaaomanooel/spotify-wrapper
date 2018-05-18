@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sininStubPromise from 'sinon-stub-promise';
+import sinonStubPromise from 'sinon-stub-promise';
 import {
   it,
   describe,
@@ -20,7 +20,7 @@ import {
 global.fetch = require('node-fetch');
 
 chai.use(sinonChai);
-sininStubPromise(sinon);
+sinonStubPromise(sinon);
 
 describe('Spotify Wrapper', () => {
   describe('Smok test', () => {
@@ -36,37 +36,45 @@ describe('Spotify Wrapper', () => {
   });
 
   describe('Generic Search', () => {
-    let fetchStub;
+    let fetchedStub;
+    let promise;
 
     beforeEach(() => {
-      fetchStub = sinon.stub(global, 'fetch');
+      fetchedStub = sinon.stub(global, 'fetch');
+      promise = fetchedStub.returnsPromise();
     });
 
     afterEach(() => {
-      fetchStub.restore();
+      fetchedStub.restore();
     });
 
-    it('Should call fetch function', () => {
+    it('should call fetch function', () => {
       search();
-      return expect(fetchStub).to.have.been.calledOnce;
+      return expect(fetchedStub).to.have.been.calledOnce;
     });
 
-    it('Sould recive  the correct url to fetch', () => {
-      context('Passing one type', () => {
+    it('should call fetch with the correct URL', () => {
+      context('passing one type', () => {
         search('Emicida', 'artist');
-        expect(fetchStub).to.have.been
+        expect(fetchedStub).to.have.been
           .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=artist');
 
         search('Emicida', 'album');
-        expect(fetchStub).to.have.been
+        expect(fetchedStub).to.have.been
           .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=album');
       });
 
-      context('Passingmore than one type', () => {
-        search('Emicida', ['album', 'artist']);
-        expect(fetchStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=album,artist');
+      context('passing more than one type', () => {
+        search('Emicida', ['artist', 'album']);
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=artist,album');
       });
+    });
+
+    it('should return the JSON Data from the Promise', () => {
+      promise.resolves({ body: 'json' });
+      const artists = search('Emicida', 'artist');
+      expect(artists.resolveValue).to.be.eql({ body: 'json' });
     });
   });
 });
