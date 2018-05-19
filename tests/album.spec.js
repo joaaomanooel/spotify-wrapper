@@ -9,8 +9,7 @@ import {
   afterEach,
 } from 'mocha';
 
-import { getAlbum, getAlbumTraks } from '../src/album';
-import { get } from 'http';
+import { getAlbum, getAlbums, getAlbumTraks } from '../src/album';
 
 global.fetch = require('node-fetch');
 
@@ -32,6 +31,8 @@ describe('Album', () => {
 
   describe('Smoke test', () => {
     it('Should have getAlbum method', () => expect(getAlbum).to.exist);
+
+    it('Should have getAlbums method', () => expect(getAlbums).to.exist);
 
     it('Should have getAlbumTracks method', () => expect(getAlbumTraks).to.exist);
   });
@@ -56,6 +57,44 @@ describe('Album', () => {
       promise.resolves({ album: 'name' });
       const album = getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
       expect(album.resolveValue).to.be.eql({ album: 'name' });
+    });
+  });
+
+  describe('getAlbums', () => {
+    it('Should call fetch method', () => {
+      getAlbums();
+      return expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the correct URL', () => {
+      getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTas']);
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/albums/?ids=4aawyAB9vmqN3uQ7FjRGTy,4aawyAB9vmqN3uQ7FjRGTas');
+    });
+
+    it('Should return the JSON Data from the Promise', () => {
+      promise.resolves({ album: 'name' });
+      const albums = getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTas']);
+      expect(albums.resolveValue).to.be.eql({ album: 'name' });
+    });
+  });
+
+  describe('getAlbumTraks', () => {
+    it('Should call fetch method', () => {
+      getAlbumTraks();
+      return expect(fetchedStub).to.have.been.calledOnce;
+    });
+
+    it('Should call fetch with the correct URL', () => {
+      getAlbumTraks('4aawyAB9vmqN3uQ7FjRGTy');
+      expect(fetchedStub).to.have.been
+        .calledWith('https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy/tracks');
+    });
+
+    it('Should return the JSON Data from the Promise', () => {
+      promise.resolves({ album: 'name' });
+      const albums = getAlbumTraks('4aawyAB9vmqN3uQ7FjRGTy');
+      expect(albums.resolveValue).to.be.eql({ album: 'name' });
     });
   });
 });

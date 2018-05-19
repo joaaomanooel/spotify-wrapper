@@ -15,14 +15,14 @@ import {
   searchArtists,
   searchPlaylists,
   searchTracks,
-} from '../src/main';
+} from '../src/search';
 
 global.fetch = require('node-fetch');
 
 chai.use(sinonChai);
 sinonStubPromise(sinon);
 
-describe('Spotify Wrapper', () => {
+describe('Search', () => {
   let fetchedStub;
   let promise;
 
