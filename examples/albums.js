@@ -1,5 +1,4 @@
-import { searchAlbums } from '../src/main';
-
+const searchAlbums = require('../src/search');
 global.fetch = require('node-fetch');
 
 const albums = searchAlbums('Emicida');
