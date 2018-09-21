@@ -1,5 +1,5 @@
 {
-  "name": "wrapper-spotify",
+  "name": "@manoel_joaoo/spotify-wrapper",
   "version": "1.0.0",
   "description": "A wrapper to work with the Spotify Web API",
   "main": "lib/index.js",
@@ -17,7 +17,7 @@
     "test:converage": "nyc npm test",
     "coveralls": "npm run test:converage && nyc report --reporter=text-lcov | coveralls"
   },
-  "files":[
+  "files": [
     "dist",
     "lib"
   ],

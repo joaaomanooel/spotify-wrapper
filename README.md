@@ -19,7 +19,7 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 ## Installation
 
 ```sh
-$ npm install spotify-wrapper --save
+$ npm i @manoel_joaoo/spotify-wrapper --save
 ```
 
 ## How to use
@@ -28,7 +28,7 @@ $ npm install spotify-wrapper --save
 
 ```js
 // to import a specific method
-import SpotifyWrapper from 'spotify-wrapper';
+import SpotifyWrapper from '@manoel_joaoo/spotify-wrapper';
 
 const spotify = new SpotifyWrapper({
   token: 'YOUR_TOKEN_HERE'
@@ -41,7 +41,7 @@ spotify.search.artists('Incubus');
 ### CommonJS
 
 ```js
-const SpotifyWrapper = require('spotify-wrapper').default;
+const SpotifyWrapper = require('@manoel_joaoo/spotify-wrapper').default;
 
 const spotify = new SpotifyWrapper({
   token: 'YOUR_TOKEN_HERE'
