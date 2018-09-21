@@ -15,7 +15,8 @@
     "test": "mocha tests/**/*.spec.js --require babel-register",
     "test:tdd": "npm test -- --watch ",
     "test:converage": "nyc npm test",
-    "coveralls": "npm run test:converage && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "npm run test:converage && nyc report --reporter=text-lcov | coveralls",
+    "prepublish": "npm run build:all"
   },
   "files": [
     "dist",
