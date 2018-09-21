@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Wrapper Test</title>
+</head>
+<body>
+
+<div id="albums"></div>
+
+<script src="../dist/spotify-wrapper.umd.min.js"></script>
+
+<script>
+  const spotify = SpotifyWrapper;
+  const albums = spotify.getAlbums('4aawyAB9vmqN3uQ7FjRGTy');
+  const albumsEl = document.getElementById('albums');
+  albums
+    .then(data => {
+      markup = data.albums.map(album =>
+        album.images.map( image =>
+          `<img src='${image.url}' alt='${image.name}' height='${image.height}' width='${image.width}' />`
+        )
+      );
+      albumsEl.innerHTML = markup;
+    })
+</script>
+</body>
+</html>
