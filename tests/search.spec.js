@@ -1,21 +1,9 @@
 import chai, { expect } from 'chai';
+import { afterEach, beforeEach, describe, it } from 'mocha';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import sinonStubPromise from 'sinon-stub-promise';
-import {
-  it,
-  describe,
-  beforeEach,
-  afterEach,
-} from 'mocha';
-
-import {
-  search,
-  searchAlbums,
-  searchArtists,
-  searchPlaylists,
-  searchTracks,
-} from '../src/search';
+import SpotifyWrapper from '../src/index';
 
 global.fetch = require('node-fetch');
 
@@ -25,8 +13,13 @@ sinonStubPromise(sinon);
 describe('Search', () => {
   let fetchedStub;
   let promise;
+  let spotify;
 
   beforeEach(() => {
+    spotify = new SpotifyWrapper({
+      token: 'foo',
+    });
+
     fetchedStub = sinon.stub(global, 'fetch');
     promise = fetchedStub.returnsPromise();
   });
@@ -36,60 +29,27 @@ describe('Search', () => {
   });
 
   describe('Smok test', () => {
-    it('Should exist the search method', () => expect(search).to.be.exist);
+    it('Should exist the searchAlbums method', () => expect(spotify.search.albums).to.exist);
 
-    it('Should exist the searchAlbums method', () => expect(searchAlbums).to.exist);
+    it('Should exist the searchArtists method', () => expect(spotify.search.artists).to.exist);
 
-    it('Should exist the searchArtists method', () => expect(searchArtists).to.exist);
+    it('Should exist the searchTracks method', () => expect(spotify.search.tracks).to.exist);
 
-    it('Should exist the searchTracks method', () => expect(searchTracks).to.exist);
-
-    it('Should exist the searchPlaylists method', () => expect(searchPlaylists).to.exist);
-  });
-
-  describe('Generic Search', () => {
-    it('Should call fetch function', () => {
-      search();
-      return expect(fetchedStub).to.have.been.calledOnce;
-    });
-
-    it('Should call fetch with the correct URL', () => {
-      context('passing one type', () => {
-        search('Emicida', 'artist');
-        expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=artist');
-
-        search('Emicida', 'album');
-        expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=album');
-      });
-
-      context('passing more than one type', () => {
-        search('Emicida', ['artist', 'album']);
-        expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=artist,album');
-      });
-    });
-
-    it('Should return the JSON Data from the Promise', () => {
-      promise.resolves({ body: 'json' });
-      const artists = search('Emicida', 'artist');
-      expect(artists.resolveValue).to.be.eql({ body: 'json' });
-    });
+    it('Should exist the searchPlaylists method', () => expect(spotify.search.playlists).to.exist);
   });
 
   describe('searchArtists', () => {
     it('Should call fetch function', () => {
-      searchArtists('Emicida');
+      spotify.search.artists('Emicida');
       return expect(fetchedStub).to.have.been.calledOnce;
     });
 
     it('Should call fetch with the correct URL', () => {
-      searchArtists('Emicida');
+      spotify.search.artists('Emicida');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=artist');
 
-      searchArtists('Muse');
+      spotify.search.artists('Muse');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
     });
@@ -97,16 +57,16 @@ describe('Search', () => {
 
   describe('searchAlbums', () => {
     it('Should call fetch function', () => {
-      searchAlbums('Emicida');
+      spotify.search.albums('Emicida');
       return expect(fetchedStub).to.have.been.calledOnce;
     });
 
     it('Should call fetch with the correct URL', () => {
-      searchAlbums('Emicida');
+      spotify.search.albums('Emicida');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=album');
 
-      searchAlbums('Muse');
+      spotify.search.albums('Muse');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
     });
@@ -114,16 +74,16 @@ describe('Search', () => {
 
   describe('searchPlayLists', () => {
     it('Should call fetch function', () => {
-      searchPlaylists('Emicida');
+      spotify.search.playlists('Emicida');
       return expect(fetchedStub).to.have.been.calledOnce;
     });
 
     it('Should call fetch with the correct URL', () => {
-      searchPlaylists('Emicida');
+      spotify.search.playlists('Emicida');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=playlist');
 
-      searchPlaylists('Muse');
+      spotify.search.playlists('Muse');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
     });
@@ -131,16 +91,16 @@ describe('Search', () => {
 
   describe('searchTraks', () => {
     it('Should call fetch function', () => {
-      searchTracks('Emicida');
+      spotify.search.tracks('Emicida');
       return expect(fetchedStub).to.have.been.calledOnce;
     });
 
     it('Should call fetch with the correct URL', () => {
-      searchTracks('Emicida');
+      spotify.search.tracks('Emicida');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Emicida&type=track');
 
-      searchTracks('Muse');
+      spotify.search.tracks('Muse');
       expect(fetchedStub).to.have.been
         .calledWith('https://api.spotify.com/v1/search?q=Muse&type=track');
     });
