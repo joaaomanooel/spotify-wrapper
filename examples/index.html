@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Spotify Wrapper Test</title>
 </head>
+
 <body>
 
-<div id="albums"></div>
+  <div id="albums"></div>
 
-<script src="../dist/spotify-wrapper.umd.min.js"></script>
+  <script src="../dist/spotify-wrapper.umd.js"></script>
 
-<script>
-  const spotify = SpotifyWrapper;
-  const albums = spotify.getAlbums('4aawyAB9vmqN3uQ7FjRGTy');
-  const albumsEl = document.getElementById('albums');
-  albums
-    .then(data => {
-      markup = data.albums.map(album =>
-        album.images.map( image =>
-          `<img src='${image.url}' alt='${image.name}' height='${image.height}' width='${image.width}' />`
-        )
-      );
-      albumsEl.innerHTML = markup;
+  <script>
+
+    //token needs to be renewed
+    const spotify = new SpotifyWrapper({
+      token: 'BQAvnfpiNS3Jw8NA8VT56xtmHmIwyLVd9S1qLu6-zDN-hARckKKcqbsFc8U2BmDM05sjC9uulBKPLNG7mZpnDdtVw4YO13UB6R5TfOEaUbh-NteOruBzJVBRH-whR0aPTTaQvMjsM7AAuqgYRAs'
     })
-</script>
+    const albums = spotify.search.albums('Soundgarden');
+    const albumsEl = document.getElementById('albums');
+    albums
+      .then(data => {
+        markup = data.albums.items.map(item =>
+          `<img src='${item.images[0].url}' alt='${item.name}' />`
+        ).join('');
+        albumsEl.innerHTML = markup;
+      })
+  </script>
 </body>
+
 </html>
