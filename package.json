@@ -1,6 +1,6 @@
 {
   "name": "@manoel_joaoo/spotify-wrapper",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A wrapper to work with the Spotify Web API",
   "main": "lib/index.js",
   "scripts": {
@@ -42,7 +42,9 @@
   "keywords": [
     "js",
     "tdd",
-    "library"
+    "library",
+    "spotify",
+    "wrapper"
   ],
   "author": "João Manoel Neto <joaaomanooel@gmail.com>",
   "license": "MIT",
