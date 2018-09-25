@@ -37,11 +37,9 @@ describe('SpotifyWrapper Library', () => {
 
   describe('Request Method', () => {
     let fetchedStub;
-    let promise;
 
     beforeEach(() => {
       fetchedStub = sinon.stub(global, 'fetch');
-      promise = fetchedStub.returnsPromise();
     });
 
     afterEach(() => {
@@ -78,12 +76,12 @@ describe('SpotifyWrapper Library', () => {
 
       const headers = {
         headers: {
-          Authorization: `Bearer foo`,
+          Authorization: 'Bearer foo',
         },
       };
 
       spotify.request('url');
       expect(fetchedStub).to.have.been.calledWith('url', headers);
-    })
+    });
   });
 });

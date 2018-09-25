@@ -12,7 +12,6 @@ sinonStubPromise(sinon);
 
 describe('Search', () => {
   let fetchedStub;
-  let promise;
   let spotify;
 
   beforeEach(() => {
@@ -21,7 +20,6 @@ describe('Search', () => {
     });
 
     fetchedStub = sinon.stub(global, 'fetch');
-    promise = fetchedStub.returnsPromise();
   });
 
   afterEach(() => {
