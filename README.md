@@ -1,6 +1,6 @@
 # Spotify Wrapper
 
-[![Build Status](https://travis-ci.org/joaaomanooel/spotify-wrapper.svg?branch=master)](https://travis-ci.org/joaaomanooel/spotify-wrapper) [![Coverage Status](https://coveralls.io/repos/github/joaaomanooel/spotify-wrapper/badge.svg?branch=master)](https://coveralls.io/github/joaaomanooel/spotify-wrapper?branch=master)
+[![Build Status](https://travis-ci.org/joaaomanooel/spotify-wrapper.svg?branch=master)](https://travis-ci.org/joaaomanooel/spotify-wrapper) [![Coverage Status](https://coveralls.io/repos/github/joaaomanooel/spotify-wrapper/badge.svg?branch=master)](https://coveralls.io/github/joaaomanooel/spotify-wrapper?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github//joaaomanooel/spotify-wrapper/badge.svg)](https://snyk.io/test/github//joaaomanooel/spotify-wrapper)
 
 A wrapper to work with the [Spotify Web API](https://developer.spotify.com/web-api/).
 
