@@ -7,7 +7,11 @@
   ],
   "globals": {
     "fetch": false,
-    "context": true
+    "context": true,
+    "afterEach": true,
+    "beforeEach": true,
+    "describe": true,
+    "it": true
   },
   "rules": {
     "no-unused-expressions": 1
