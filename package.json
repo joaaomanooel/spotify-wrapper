@@ -12,7 +12,7 @@
     "build:all": "npm run build:umd && npm run build:umd:min",
     "lint": "eslint src/**/*.js tests/**/*.spec.js",
     "prepush": "npm run lint && npm run test:converage",
-    "test": "mocha tests/**/*.spec.js --require babel-register",
+    "test": "mocha tests/**/*.spec.js --require @babel/register",
     "test:tdd": "npm test -- --watch ",
     "test:converage": "nyc npm test",
     "coveralls": "npm run test:converage && nyc report --reporter=text-lcov | coveralls",
