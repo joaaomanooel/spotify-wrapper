@@ -1,5 +1,7 @@
 import chai, { expect } from 'chai';
-import { afterEach, beforeEach, describe, it } from 'mocha';
+import {
+  afterEach, beforeEach, describe, it,
+} from 'mocha';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import sinonStubPromise from 'sinon-stub-promise';
