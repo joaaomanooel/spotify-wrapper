@@ -1,6 +1,7 @@
 import album from './album';
-import { API_URL } from './config';
+import API_URL from './config';
 import search from './search';
+import toJSON from './utils';
 
 export default class SpotfyWrapper {
   constructor(options) {
@@ -18,6 +19,6 @@ export default class SpotfyWrapper {
       },
     };
 
-    return fetch(url, headers);
+    return fetch(url, headers).then(toJSON);
   }
 }
