@@ -1,13 +1,11 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sinonStubPromise from 'sinon-stub-promise';
 import SpotifyWrapper from '../src/index';
 
 global.fetch = require('node-fetch');
 
 chai.use(sinonChai);
-sinonStubPromise(sinon);
 
 describe('SpotifyWrapper Library', () => {
   it('should crate an instance of SpotifyWrapper', () => {
